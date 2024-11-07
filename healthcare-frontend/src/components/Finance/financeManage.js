@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Spinner, Button, Form, Row, Col, Card, ListGroup } from 'react-bootstrap';
-import { viewDoctorVisits } from '../../api/api';
+import { searchVisits} from '../../api/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -12,12 +12,12 @@ function FinanceVisitManagement() {
   const [patientName, setPatientName] = useState('');
   const [visitId, setVisitId] = useState('');
 
-  // Fetch visits based on search parameters
   const fetchVisits = async (filters = {}) => {
     setLoading(true);
     try {
       const params = new URLSearchParams(filters);
-      const response = await viewDoctorVisits(params.toString());
+      const response = await searchVisits(params.toString());
+      console.log("Query params:", params.toString());
       setVisits(response.data.visits || []);
     } catch (error) {
       console.error("Error fetching visits:", error);
@@ -33,8 +33,15 @@ function FinanceVisitManagement() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchVisits({ doctorName, patientName, visitId });
+  
+    const filters = {};
+    if (doctorName) filters.doctorName = doctorName;
+    if (patientName) filters.patientName = patientName;
+    if (visitId) filters.visitId = visitId;
+  
+    fetchVisits(filters);
   };
+  
 
   const handleReview = (visit) => {
     setSelectedVisit(visit);
