@@ -8,6 +8,7 @@ const Visit = sequelize.define('Visit', {
   doctorId: { type: DataTypes.INTEGER, references: { model: User, key: 'id' } },
   status: { type: DataTypes.ENUM('Pending', 'In Progress', 'Completed'), defaultValue: 'Pending' },
   totalAmount: { type: DataTypes.FLOAT, defaultValue: 0 },
+  preferredTime: { type: DataTypes.TIME, allowNull: true },
 });
 
 User.hasMany(Visit, { foreignKey: 'patientId' });

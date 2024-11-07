@@ -2,11 +2,15 @@ const Visit = require('../models/visit');
 const User = require('../models/user');
 const { Op } = require('sequelize');
 
-// Search Visits
 exports.searchVisits = async (req, res) => {
   const { doctorName, patientName, visitId } = req.query;
   const searchConditions = {};
-
+  if (req.user.userType === 'Doctor') {
+    searchConditions.doctorId = req.user.id;
+  }
+  if (req.user.userType === 'Patient') {
+    searchConditions.patientId = req.user.id;
+  }
   if (visitId) {
     searchConditions.id = visitId;
   }
@@ -35,7 +39,6 @@ exports.searchVisits = async (req, res) => {
   }
 };
 
-// Review Visit Details
 exports.reviewVisit = async (req, res) => {
   const { visitId } = req.params;
 

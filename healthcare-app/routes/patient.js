@@ -1,4 +1,3 @@
-// routes/patient.js
 const express = require('express');
 const { bookVisit, viewVisits,listDoctors } = require('../controllers/patientController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');

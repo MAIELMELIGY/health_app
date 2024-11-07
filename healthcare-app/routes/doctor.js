@@ -1,4 +1,3 @@
-// routes/doctor.js
 const express = require('express');
 const { startVisit, addTreatment, completeVisit } = require('../controllers/doctorController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');

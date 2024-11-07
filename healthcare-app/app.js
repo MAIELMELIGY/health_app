@@ -1,9 +1,8 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger'); // Import Swagger spec
+const swaggerSpec = require('./swagger'); 
 
 require('dotenv').config();
 
@@ -16,7 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Swagger documentation route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/auth', authRoutes);

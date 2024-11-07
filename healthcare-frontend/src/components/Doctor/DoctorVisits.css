@@ -1,0 +1,33 @@
+.doctor-visits .title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .visits-table th, .visits-table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .start-visit-button {
+    font-weight: 600;
+    padding: 6px 12px;
+  }
+  
+  .status.bg-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .status.bg-warning {
+    background-color: #ffc107;
+    color: black;
+  }
+  
+  .no-visits-message {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+  }
+  

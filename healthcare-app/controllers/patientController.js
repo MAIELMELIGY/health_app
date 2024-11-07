@@ -1,13 +1,24 @@
 const Visit = require('../models/visit');
 const User = require('../models/user');
 
-// Book a Visit
+
 exports.bookVisit = async (req, res) => {
-  const { doctorId } = req.body;
-  const patientId = req.user.id;
+  const { doctorId, preferredTime } = req.body;
+  const patientId = req.user.id; 
 
   try {
-    const newVisit = await Visit.create({ patientId, doctorId, status: 'Pending' });
+    if (typeof doctorId !== 'number') {
+      return res.status(400).json({ message: 'Invalid doctorId. Must be an integer.' });
+    }
+
+    const newVisit = await Visit.create({
+      patientId,
+      doctorId,
+      preferredTime,
+      status: 'Pending',
+      totalAmount: 0
+    });
+
     res.status(201).json(newVisit);
   } catch (error) {
     console.error('Error booking visit:', error);
@@ -15,7 +26,6 @@ exports.bookVisit = async (req, res) => {
   }
 };
 
-// View Patient's Visit History
 exports.viewVisits = async (req, res) => {
   const patientId = req.user.id;
 
@@ -36,7 +46,7 @@ exports.listDoctors = async (req, res) => {
   try {
     const doctors = await User.findAll({
       where: { userType: 'Doctor' },
-      attributes: ['id', 'name', 'email'] // Only return necessary fields
+      attributes: ['id', 'name', 'email'] 
     });
 
     res.json(doctors);

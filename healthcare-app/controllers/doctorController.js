@@ -5,7 +5,6 @@ exports.startVisit = async (req, res) => {
   const { visitId } = req.body;
 
   try {
-    // Check if the doctor already has an active visit
     const activeVisit = await Visit.findOne({
       where: { doctorId: req.user.id, status: 'In Progress' }
     });
@@ -35,12 +34,10 @@ exports.startVisit = async (req, res) => {
   }
 };
 
-// Add Treatment to Visit
 exports.addTreatment = async (req, res) => {
   const { visitId, description, value } = req.body;
 
   try {
-    // Find the visit and ensure it's in progress
     const visit = await Visit.findOne({
       where: { id: visitId, doctorId: req.user.id, status: 'In Progress' }
     });
@@ -49,10 +46,8 @@ exports.addTreatment = async (req, res) => {
       return res.status(404).json({ error: 'Visit not found or not in progress' });
     }
 
-    // Add the treatment
     const treatment = await Treatment.create({ visitId, description, value });
 
-    // Update the total amount of the visit
     visit.totalAmount += value;
     await visit.save();
 
@@ -63,7 +58,6 @@ exports.addTreatment = async (req, res) => {
   }
 };
 
-// Complete the Visit
 exports.completeVisit = async (req, res) => {
   const { visitId } = req.body;
 

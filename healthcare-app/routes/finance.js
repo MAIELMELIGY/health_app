@@ -1,4 +1,3 @@
-// routes/finance.js
 const express = require('express');
 const { searchVisits, reviewVisit } = require('../controllers/financeController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');
