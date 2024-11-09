@@ -15,17 +15,15 @@ function FinanceVisitManagement() {
   const fetchVisits = async (filters = {}) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams(filters);
-      const response = await searchVisits(params.toString());
-      console.log("Query params:", params.toString());
+      const response = await searchVisits(filters);
       setVisits(response.data.visits || []);
     } catch (error) {
-      console.error("Error fetching visits:", error);
       setVisits([]);
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchVisits(); 
