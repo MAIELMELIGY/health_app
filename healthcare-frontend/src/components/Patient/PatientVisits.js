@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { bookVisit, listDoctors, viewDoctorVisits } from '../../api/api';
+import { bookVisit, listDoctors, viewVisits } from '../../api/api';
 import { Spinner, Button, Form, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,19 +26,21 @@ function PatientVisits() {
       setError('Failed to load doctors.');
     }
   };
-
   const fetchVisits = async () => {
     setLoading(true);
     try {
-      const response = await viewDoctorVisits();
-      setVisits(response.data.visits || []);
+      const response = await viewVisits();
+      setVisits(response.data.visits || response.data || []); 
     } catch (error) {
       console.error("Error fetching visits:", error);
+      setError('Failed to fetch visits. Please try again.');
       setVisits([]);
     } finally {
       setLoading(false);
     }
   };
+  
+  
 
   const handleBookVisit = async () => {
     try {
