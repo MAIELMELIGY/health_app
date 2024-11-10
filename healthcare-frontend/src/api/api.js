@@ -24,7 +24,7 @@ export const viewVisits = () => handleRequest(() => api.get('/patient/view-visit
 export const listDoctors = () => handleRequest(() => api.get('/patient/list-doctors'));
 
 // Doctor Endpoints
-export const viewDoctorVisits = () => handleRequest(() => api.get('/doctor/view-visits'));
+export const viewDoctorVisits = () => handleRequest(() => api.get('/finance/search-visits'));
 export const startVisit = (visitId) => handleRequest(() => api.post('/doctor/start-visit', { visitId }));
 export const addTreatment = (visitId, description, value) =>
   handleRequest(() => api.post('/doctor/add-treatment', { visitId, description, value }));
